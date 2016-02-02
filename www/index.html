@@ -33,6 +33,7 @@
             var APP_ID = "D7D2295E2A08388C";
             var WORKSPACE_ID = "86649B4A05B0A368";
             var TOKEN = "";
+            var ANDROID_SENDER_ID = "844990143909";
 
             document.addEventListener("deviceready", onDeviceReady, false);
             function onDeviceReady() {
@@ -240,6 +241,26 @@
                 $("#deviceName").val(device.model + " " + device.version);
                 $("#deviceId").val(device.uuid);
                 $("#platform").val(device.platform);
+
+                alert("initiating push");
+
+                try{
+                    var push = PushNotification.init({
+                        android: {
+                            senderID: ANDROID_SENDER_ID
+                        },
+                        ios: {
+                            alert: "true",
+                            badge: "true",
+                            sound: "true"
+                        },
+                        windows: {}
+                    });
+
+                    alert(push);
+                } catch(e) {
+                    alert(e);
+                }
             }
 
             function sendInvitation(contactMri) {
@@ -448,7 +469,7 @@
         <!-- Footer -->
         <footer>
             <div class="container text-center">
-                <p>Copyright &copy; JordWalsh 2016</p>
+                <p>Copyright &copy; Jordan Walsh 2016</p>
             </div>
         </footer>
         <!-- jQuery -->
