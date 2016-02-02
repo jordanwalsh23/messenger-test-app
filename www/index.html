@@ -34,6 +34,7 @@
             var WORKSPACE_ID = "86649B4A05B0A368";
             var TOKEN = "";
             var ANDROID_SENDER_ID = "844990143909";
+            var PUSH_TOKEN = "";
 
             document.addEventListener("deviceready", onDeviceReady, false);
             function onDeviceReady() {
@@ -42,6 +43,7 @@
                 $("#registerDevice").hide();
                 $("#invitationRequest").hide();
                 $("#invitationAccept").hide();
+                $("#notificationsList").hide();
 
                 //Invitation Request
                 $("#inviteRequestBtn").click(function(){
@@ -207,6 +209,7 @@
 
                 //Register Device Form Submit
                 $("#deviceRegistrationForm").submit(function(event){
+
                     //Construct the API request to Whispir
                     var request = {
                       "deviceName": $("#deviceName").val(),
@@ -214,7 +217,7 @@
                       "application": $("#application option:selected").val(),
                       "appVersion": $("#application option:selected").attr("data-version"),
                       "platform": $("#platform").val().toUpperCase(),
-                      "pushToken": "asdf"
+                      "pushToken": PUSH_TOKEN
                     };
 
                     $.ajax({
@@ -229,6 +232,9 @@
                         data: JSON.stringify(request),
                         success: function(data, status, xhr) {
                             alert("Device has been registered successfully.");
+                            $("#registerDevice").hide();
+                            $("#notificationsList").show();
+                            $(window).scrollTop($('#notificationsList').offset().top);
                         },
                         error: function(xhr, status, errorText) {
                             alert(xhr.responseText);
@@ -242,7 +248,6 @@
                 $("#deviceId").val(device.uuid);
                 $("#platform").val(device.platform);
 
-                alert("initiating push");
 
                 try{
                     var push = PushNotification.init({
@@ -257,7 +262,28 @@
                         windows: {}
                     });
 
-                    alert(push);
+                    push.on('registration', function(data) {
+                        PUSH_TOKEN = data.registrationId;
+                    });
+
+                    push.on('notification', function(data) {
+                        var content = "<p><strong>Received Notification</strong><br/>";
+
+                        content += "data.message: " + data.message + "</br>";
+                        content += "data.title: " + data.title + "</br>";
+                        content += "data.count: " + data.count + "</br>";
+                        content += "data.sound: " + data.sound + "</br>";
+                        content += "data.image: " + data.image + "</br>";
+                        content += "data.additionalData: " + data.additionalData + "</br></br>";
+
+                        $("#notifications").append(content);
+                    });
+
+                    push.on('error', function(e) {
+                        alert(e.message);
+                    });
+
+                    
                 } catch(e) {
                     alert(e);
                 }
@@ -442,6 +468,17 @@
 
                         <button id="registerDeviceBtn" class="btn btn-large">Register Device</button>
                     </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notifications List Section -->
+        <section id="notificationsList" class="container content-section">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2 class="text-center">List of Notifications</h2>
+                    <p class="text-center">The following notifications have been received by this device.</p>
+                    <div id="notifications" style="width: 90%; height: 400px; overflow: scroll; font-family: Courier-New; font-size: 12px;"></div>
                 </div>
             </div>
         </section>
