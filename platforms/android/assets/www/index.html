@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1,width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1,width=device-width, height=device-height, target-densitydpi=medium-dpi" />
         <meta name="description" content="">
         <meta name="author" content="">
         <meta name="format-detection" content="telephone=no" />
@@ -31,8 +31,9 @@
             document.addEventListener("deviceready", onDeviceReady, false);
             function onDeviceReady() {
 
-                var WHISPIR_API_URL = "https://whispir-apps-api-mock.herokuapp.com";
-                var APP_ID = "1234";
+                var WHISPIR_API_URL = "http://app9.stg1.whispir.net:9080/api";
+                var APPS_API_URL = "http://app9.stg1.whispir.net:8500";
+                var APP_ID = "D7D2295E2A08388C";
 
                 //Hide the 'register' section until the 'invite' section is completed
                 $("#registerDevice").hide();
@@ -58,26 +59,24 @@
                     //Construct the API request to Whispir
 
                     var request = {
-                      "to": "jwalsh@whispir.com",
+                      "to": "Jordan_Walsh.298.Messenger@Contact.whispir.com",
                       "subject": "This is your invite to @@app_name@@",
-                      "email": {
-                        "body": "This is your code: @@activation_code@@",
-                        "type": "text/plain"
-                      }
+                      "body": "This is your code: @@activation_code@@"
                     };
 
                     $.ajax({
-                        url: WHISPIR_API_URL + "/apps/" + APP_ID + "/invites",
+                        url: WHISPIR_API_URL + "/apps/" + APP_ID + "/invite",
                         headers : {
-                            "accept" : "application/vnd.whispir.invite-v1+json",
-                            "content-type" : "application/vnd.whispir.invite-v1+json"
+                            "accept" : "application/vnd.whispir.appdevice-v1+json",
+                            "content-type" : "application/vnd.whispir.appdevice-v1+json"
                         },
-                        username: "jwalsh",
-                        password: "1234",
+                        username: "nadim_jtribe",
+                        password: "Whispir1",
                         method: "POST",
-                        dataType: "json",
+                        dataType: "text",
                         data: JSON.stringify(request),
                         success: function(data, status, xhr) {
+                            alert("Invite sent successfully. Check your email.");
                             $("#invitationRequest").hide();
                             $("#invitationAccept").show();
                             $(window).scrollTop($('#invitationAccept').offset().top);
@@ -93,25 +92,13 @@
                 //Invitation Accept Form Submit
                 $("#invitationAcceptForm").submit(function(event){
                     //Construct the API request to Whispir
-                    var APPS_API_URL = "https://whispir-messenger-api-mock.herokuapp.com";
 
                     var request = {
-                      "appId": "string",
-                      "authType": "mobile",
-                      "authParameters": [
-                        {
-                          "name": "string",
-                          "value": "string"
-                        }
-                      ]
-                    };
-
-                    var request = {
-                      "appKey": "1234",
+                      "appKey": "D7D2295E2A08388C",
                       "authType": "mobile",
                       "authParameters": [{
-                        "mobile": "61423556682",
-                        "pincode": "123456"
+                        "mobile": $("#mobileAccept").val(),
+                        "pincode": $("#activationCode").val()
                       }]
                     };
 
@@ -130,7 +117,7 @@
                             $(window).scrollTop($('#registerDevice').offset().top);
                         },
                         error: function(xhr, status, errorText) {
-                            alert(errorTexts);
+                            alert(errorText);
                         }
                     });
 
@@ -140,8 +127,6 @@
                 //Register Device Form Submit
                 $("#deviceRegistrationForm").submit(function(event){
                     //Construct the API request to Whispir
-                    var APPS_API_URL = "https://whispir-messenger-api-mock.herokuapp.com";
-
                     var request = {
                       "deviceName": $("#deviceName").val(),
                       "deviceId": $("#deviceId").val(),
@@ -197,10 +182,7 @@
                             <a href="#page-top"></a>
                         </li>
                         <li>
-                            <a class="page-scroll" href="#invite">Invitation</a>
-                        </li>
-                        <li>
-                            <a class="page-scroll" href="#register">Register</a>
+                            <a class="page-scroll" href="#inviteSetup">Get Started</a>
                         </li>
                         <li>
                             <a class="page-scroll" href="#contact">Contact</a>

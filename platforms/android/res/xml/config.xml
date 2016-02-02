@@ -9,12 +9,12 @@
         <param name="android-package" value="org.apache.cordova.device.Device" />
     </feature>
     <allow-intent href="market:*" />
-    <name>Hello World</name>
+    <name>Whispir Test App</name>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        Test application for the new Apps API
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="jwalsh@whispir.com" href="https://whispir.io">
+        Whispir.io Team
     </author>
     <content src="index.html" />
     <preference name="permissions" value="none" />
