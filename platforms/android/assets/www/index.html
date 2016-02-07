@@ -32,12 +32,12 @@
             //var APPS_API_URL = "http://app9.stg1.whispir.net:8500";
             
 
-            var WHISPIR_API_URL = "http://jtribeapi.whispir.net:9080/apps";
+            var WHISPIR_API_URL = "http://jtribeapi.whispir.net:9080/api";
             var APPS_API_URL = "http://jtribeappapi.whispir.net:8500";
 
 
-            var APP_ID = "86A9FE3C671D1427";
-            var WORKSPACE_ID = "85BEC3CB0967E6B7";
+            var APP_ID = "422D0A8A4C73BBEA";
+            var WORKSPACE_ID = "86649B4A05B0A368";
             var TOKEN = "";
             var ANDROID_SENDER_ID = "844990143909";
             var PUSH_TOKEN = "";
@@ -106,7 +106,7 @@
                                         }
                                     },
                                     error: function(xhr, status, errorText) {
-                                        alert(errorText);
+                                        alert("Error getting contact by ID: " + errorText);
                                     }
                                 });
 
@@ -163,13 +163,13 @@
                                         sendInvitation(contactMri);
                                     },
                                     error: function(xhr, status, errorText) {
-                                        alert(errorText);
+                                        alert("Error creating contact: " + errorText);
                                     }
                                 });
                             }
                         },
                         error: function(xhr, status, errorText) {
-                            alert(errorText);
+                            alert("Error searching for contact: " + errorText);
                         }
                     });
 
@@ -181,11 +181,11 @@
                     //Construct the API request to Whispir
 
                     var request = {
-                      "appKey": APP_ID,
+                      "appId": APP_ID,
                       "authType": "mobile",
                       "authParameters": {
-                        "mobile": $("#mobileAccept").val(),
-                        "pincode": $("#activationCode").val()
+                        "name": $("#mobileAccept").val(),
+                        "value": $("#activationCode").val()
                       }
                     };
 
@@ -206,7 +206,7 @@
                             $(window).scrollTop($('#registerDevice').offset().top);
                         },
                         error: function(xhr, status, errorText) {
-                            alert(errorText);
+                            alert("Error validating app information: " + errorText);
                         }
                     });
 
@@ -248,7 +248,7 @@
                             $(window).scrollTop($('#notificationsList').offset().top);
                         },
                         error: function(xhr, status, errorText) {
-                            alert(xhr.responseText);
+                            alert("Error registering device: " + xhr.responseText);
                         }
                     });
 
@@ -328,7 +328,7 @@
                         $(window).scrollTop($('#invitationAccept').offset().top);
                     },
                     error: function(xhr, status, errorText) {
-                        alert(errorText);
+                        alert("Error sending invitation: " + errorText);
                     }
                 });
             }
