@@ -15,6 +15,9 @@
         },
         "phonegap-plugin-push": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "com.plugins.shortcut": {
+            "PACKAGE_NAME": "com.whispir.test_app"
         }
     },
     "dependent_plugins": {}

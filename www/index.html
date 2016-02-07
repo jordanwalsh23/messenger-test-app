@@ -25,6 +25,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript">
 
@@ -161,6 +162,7 @@
                                         alert("Contact Created Successfully. MRI: " + data.mri);
                                         contactMri = data.mri;
                                         sendInvitation(contactMri);
+                                        $("#mobileAccept").val($("#mobileRequest").val());
                                     },
                                     error: function(xhr, status, errorText) {
                                         alert("Error creating contact: " + errorText);
@@ -255,6 +257,37 @@
                     event.preventDefault();               
                 });
 
+                $("#refreshMessages").click(function(event){
+                    $.ajax({
+                        url: APPS_API_URL + "/app/me/messages",
+                        headers : {
+                            "Accept" : "application/json",
+                            "Content-Type" : "application/json",
+                            "Authorization" : "Bearer " + TOKEN
+                        },
+                        method: "GET",
+                        dataType: "json",
+                        success: function(data, status, xhr) {
+                            alert("Messages Retrieved Successfully: " + data.messages.length);
+                            $("#notifications").empty();
+                            var messages = data.messages;
+
+                            $.each(messages, function(key, value){
+                                var message = key + ": " + value.subject + " - " + value.body + "<br/>";
+
+                                $("#notifications").append(message);
+                            });
+                        },
+                        error: function(xhr, status, errorText) {
+                            alert("Error retrieving messages: " + xhr.responseText);
+                        }
+                    });
+                });
+
+                $("#clearMessages").click(function(event){
+                    $("#notifications").empty();
+                });
+
                 $("#deviceName").val(device.name);
                 $("#deviceOS").val(device.version);
                 $("#deviceModel").val(device.model);
@@ -332,6 +365,8 @@
                     }
                 });
             }
+
+            window.plugins.Shortcut.CreateShortcut("Whipir Test App", function(){}, function(){} );
         </script>
     </head>
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -407,19 +442,19 @@
                     <form id="invitationRequestForm">
                         <div class="form-group">
                             <label for="firstname">First Name</label>
-                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="John">
+                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="John" value="Jordan">
                         </div>
                         <div class="form-group">
                             <label for="lastname">Last Name</label>
-                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Smith">
+                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Smith" value="Walsh">
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="jsmith@example.com">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="jsmith@example.com" value="jordanwalsh23@gmail.com">
                         </div>
                         <div class="form-group">
                             <label for="mobileRequest">Mobile</label>
-                            <input type="number" class="form-control" id="mobileRequest" name="mobileRequest" placeholder="61000000000">
+                            <input type="number" class="form-control" id="mobileRequest" name="mobileRequest" placeholder="61000000000" value="61423556682">
                         </div>
                         <div class="col-sm-6">
                             <button type="submit" class="btn btn-large" id="inviteRequestComplete">Request Invite</button>
@@ -438,7 +473,7 @@
                     <form id="invitationAcceptForm">
                         <div class="form-group">
                             <label for="mobileAccept">Mobile</label>
-                            <input type="number" class="form-control" id="mobileAccept" name="mobileAccept" placeholder="Mobile Number">
+                            <input type="number" class="form-control" id="mobileAccept" name="mobileAccept" placeholder="Mobile Number" >
                         </div>
                         <div class="form-group">
                             <label for="activationCode">Activation Code</label>
@@ -492,9 +527,15 @@
         <section id="notificationsList" class="container content-section">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <h2 class="text-center">List of Notifications</h2>
-                    <p class="text-center">The following notifications have been received by this device.</p>
+                    <h2 class="text-center">Messages</h2>
+                    <p class="text-center">The following messages have been received by this device.</p>
                     <div id="notifications" style="width: 90%; height: 400px; overflow: scroll; font-family: Courier-New; font-size: 12px;"></div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-large" id="refreshMessages">Refresh Messages</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-large" id="clearMessages">Clear Messages</button>
+                    </div>
                 </div>
             </div>
         </section>

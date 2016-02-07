@@ -21,6 +21,14 @@ module.exports = [
         "clobbers": [
             "PushNotification"
         ]
+    },
+    {
+        "file": "plugins/com.plugins.shortcut/www/ShortcutPlugin.js",
+        "id": "com.plugins.shortcut.ShortcutPlugin",
+        "pluginId": "com.plugins.shortcut",
+        "clobbers": [
+            "ShortcutPlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -28,7 +36,8 @@ module.exports.metadata =
 {
     "cordova-plugin-whitelist": "1.2.1",
     "cordova-plugin-device": "1.1.1",
-    "phonegap-plugin-push": "1.5.3"
+    "phonegap-plugin-push": "1.5.3",
+    "com.plugins.shortcut": "0.1.1"
 }
 // BOTTOM OF METADATA
 });

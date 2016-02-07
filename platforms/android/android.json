@@ -19,6 +19,10 @@
                         {
                             "xml": "<feature name=\"PushNotification\"><param name=\"android-package\" value=\"com.adobe.phonegap.push.PushPlugin\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"ShortcutPlugin\"><param name=\"android-package\" value=\"com.plugins.shortcut.ShortcutPlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -76,6 +80,16 @@
                             "xml": "<service android:exported=\"false\" android:name=\"com.adobe.phonegap.push.RegistrationIntentService\"></service>",
                             "count": 1
                         }
+                    ],
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\" />",
+                            "count": 1
+                        }
                     ]
                 }
             }
@@ -90,6 +104,9 @@
         },
         "phonegap-plugin-push": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "com.plugins.shortcut": {
+            "PACKAGE_NAME": "com.whispir.test_app"
         }
     },
     "dependent_plugins": {},
@@ -115,11 +132,20 @@
             "clobbers": [
                 "PushNotification"
             ]
+        },
+        {
+            "file": "plugins/com.plugins.shortcut/www/ShortcutPlugin.js",
+            "id": "com.plugins.shortcut.ShortcutPlugin",
+            "pluginId": "com.plugins.shortcut",
+            "clobbers": [
+                "ShortcutPlugin"
+            ]
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-whitelist": "1.2.1",
         "cordova-plugin-device": "1.1.1",
-        "phonegap-plugin-push": "1.5.3"
+        "phonegap-plugin-push": "1.5.3",
+        "com.plugins.shortcut": "0.1.1"
     }
 }
