@@ -29,6 +29,8 @@
         <service android:exported="false" android:name="com.adobe.phonegap.push.RegistrationIntentService" />
     </application>
     <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="22" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -36,6 +38,4 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <permission android:name="${applicationId}.permission.C2D_MESSAGE" android:protectionLevel="signature" />
     <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
 </manifest>

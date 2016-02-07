@@ -7,16 +7,16 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
-        },
-        "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
+        "com.plugins.shortcut": {
+            "PACKAGE_NAME": "com.whispir.test_app"
         },
         "phonegap-plugin-push": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
+            "PACKAGE_NAME": "com.whispir.test_app"
         },
-        "com.plugins.shortcut": {
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.whispir.test_app"
+        },
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.whispir.test_app"
         }
     },

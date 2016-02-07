@@ -9,11 +9,7 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "xml": "<feature name=\"ShortcutPlugin\"><param name=\"android-package\" value=\"com.plugins.shortcut.ShortcutPlugin\" /></feature>",
                             "count": 1
                         },
                         {
@@ -21,7 +17,11 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"ShortcutPlugin\"><param name=\"android-package\" value=\"com.plugins.shortcut.ShortcutPlugin\" /></feature>",
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -96,33 +96,27 @@
         }
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.whispir.test_app"
-        },
-        "cordova-plugin-device": {
+        "com.plugins.shortcut": {
             "PACKAGE_NAME": "com.whispir.test_app"
         },
         "phonegap-plugin-push": {
             "PACKAGE_NAME": "com.whispir.test_app"
         },
-        "com.plugins.shortcut": {
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.whispir.test_app"
+        },
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.whispir.test_app"
         }
     },
     "dependent_plugins": {},
     "modules": [
         {
-            "file": "plugins/cordova-plugin-whitelist/whitelist.js",
-            "id": "cordova-plugin-whitelist.whitelist",
-            "pluginId": "cordova-plugin-whitelist",
-            "runs": true
-        },
-        {
-            "file": "plugins/cordova-plugin-device/www/device.js",
-            "id": "cordova-plugin-device.device",
-            "pluginId": "cordova-plugin-device",
+            "file": "plugins/com.plugins.shortcut/www/ShortcutPlugin.js",
+            "id": "com.plugins.shortcut.ShortcutPlugin",
+            "pluginId": "com.plugins.shortcut",
             "clobbers": [
-                "device"
+                "ShortcutPlugin"
             ]
         },
         {
@@ -134,18 +128,24 @@
             ]
         },
         {
-            "file": "plugins/com.plugins.shortcut/www/ShortcutPlugin.js",
-            "id": "com.plugins.shortcut.ShortcutPlugin",
-            "pluginId": "com.plugins.shortcut",
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "id": "cordova-plugin-device.device",
+            "pluginId": "cordova-plugin-device",
             "clobbers": [
-                "ShortcutPlugin"
+                "device"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-whitelist/whitelist.js",
+            "id": "cordova-plugin-whitelist.whitelist",
+            "pluginId": "cordova-plugin-whitelist",
+            "runs": true
         }
     ],
     "plugin_metadata": {
-        "cordova-plugin-whitelist": "1.2.1",
-        "cordova-plugin-device": "1.1.1",
+        "com.plugins.shortcut": "0.1.1",
         "phonegap-plugin-push": "1.5.3",
-        "com.plugins.shortcut": "0.1.1"
+        "cordova-plugin-device": "1.1.1",
+        "cordova-plugin-whitelist": "1.2.1"
     }
 }
