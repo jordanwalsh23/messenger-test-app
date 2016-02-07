@@ -296,7 +296,8 @@
                 try{
                     var push = PushNotification.init({
                         android: {
-                            senderID: ANDROID_SENDER_ID
+                            senderID: ANDROID_SENDER_ID,
+                            forceShow: "true"
                         },
                         ios: {
                             alert: "true",
@@ -309,9 +310,11 @@
                     push.on('registration', function(data) {
                         alert("PushToken is: " + data.registrationId);
                         PUSH_TOKEN = data.registrationId;
+                        $("#notifications").append("<p>").append(PUSH_TOKEN);
                     });
 
                     push.on('notification', function(data) {
+                        alert("Push Notification Received");
                         var content = "<p><strong>Received Notification</strong><br/>";
 
                         content += "data.message: " + data.message + "<br>";
@@ -366,7 +369,7 @@
                 });
             }
 
-            window.plugins.Shortcut.CreateShortcut("Whipir Test App", function(){}, function(){} );
+            //window.plugins.Shortcut.CreateShortcut("Whipir Test App", function(){}, function(){} );
         </script>
     </head>
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">

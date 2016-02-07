@@ -7,9 +7,6 @@
         "files": {}
     },
     "installed_plugins": {
-        "com.plugins.shortcut": {
-            "PACKAGE_NAME": "com.whispir.test_app"
-        },
         "phonegap-plugin-push": {
             "PACKAGE_NAME": "com.whispir.test_app"
         },

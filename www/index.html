@@ -297,7 +297,7 @@
                     var push = PushNotification.init({
                         android: {
                             senderID: ANDROID_SENDER_ID,
-                            forceShow: true
+                            forceShow: "true"
                         },
                         ios: {
                             alert: "true",
@@ -369,7 +369,6 @@
                 });
             }
 
-            window.plugins.Shortcut.CreateShortcut("Whipir Test App", function(){}, function(){} );
         </script>
     </head>
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">

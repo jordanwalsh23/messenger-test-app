@@ -1,9 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.whispir.test-app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
-    <feature name="ShortcutPlugin">
-        <param name="android-package" value="com.plugins.shortcut.ShortcutPlugin" />
-    </feature>
     <feature name="PushNotification">
         <param name="android-package" value="com.adobe.phonegap.push.PushPlugin" />
     </feature>
