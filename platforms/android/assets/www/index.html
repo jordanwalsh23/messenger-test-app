@@ -28,10 +28,16 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript">
 
-            var WHISPIR_API_URL = "http://app9.stg1.whispir.net:9080/api";
-            var APPS_API_URL = "http://app9.stg1.whispir.net:8500";
-            var APP_ID = "D7D2295E2A08388C";
-            var WORKSPACE_ID = "86649B4A05B0A368";
+            //var WHISPIR_API_URL = "http://app9.stg1.whispir.net:9080/api";
+            //var APPS_API_URL = "http://app9.stg1.whispir.net:8500";
+            
+
+            var WHISPIR_API_URL = "http://jtribeapi.whispir.net:9080/apps";
+            var APPS_API_URL = "http://jtribeappapi.whispir.net:8500";
+
+
+            var APP_ID = "86A9FE3C671D1427";
+            var WORKSPACE_ID = "85BEC3CB0967E6B7";
             var TOKEN = "";
             var ANDROID_SENDER_ID = "844990143909";
             var PUSH_TOKEN = "";
@@ -175,7 +181,7 @@
                     //Construct the API request to Whispir
 
                     var request = {
-                      "appKey": "D7D2295E2A08388C",
+                      "appKey": APP_ID,
                       "authType": "mobile",
                       "authParameters": {
                         "mobile": $("#mobileAccept").val(),
@@ -210,13 +216,18 @@
                 //Register Device Form Submit
                 $("#deviceRegistrationForm").submit(function(event){
 
+                    alert("Registering Push Token: " + PUSH_TOKEN);
+
                     //Construct the API request to Whispir
                     var request = {
                       "deviceName": $("#deviceName").val(),
-                      "deviceId": $("#deviceId").val(),
-                      "application": $("#application option:selected").val(),
                       "appVersion": $("#application option:selected").attr("data-version"),
                       "platform": $("#platform").val().toUpperCase(),
+                      "deviceOS" : $("#deviceOS").val(),
+                      "deviceModel" : $("#deviceModel").val(),
+                      "badgeCount": "0",
+                      "pushDisabledByUser": false,
+                      "status": "A",                      
                       "pushToken": PUSH_TOKEN
                     };
 
@@ -244,10 +255,10 @@
                     event.preventDefault();               
                 });
 
-                $("#deviceName").val(device.model + " " + device.version);
-                $("#deviceId").val(device.uuid);
+                $("#deviceName").val(device.name);
+                $("#deviceOS").val(device.version);
+                $("#deviceModel").val(device.model);
                 $("#platform").val(device.platform);
-
 
                 try{
                     var push = PushNotification.init({
@@ -263,18 +274,19 @@
                     });
 
                     push.on('registration', function(data) {
+                        alert("PushToken is: " + data.registrationId);
                         PUSH_TOKEN = data.registrationId;
                     });
 
                     push.on('notification', function(data) {
                         var content = "<p><strong>Received Notification</strong><br/>";
 
-                        content += "data.message: " + data.message + "</br>";
-                        content += "data.title: " + data.title + "</br>";
-                        content += "data.count: " + data.count + "</br>";
-                        content += "data.sound: " + data.sound + "</br>";
-                        content += "data.image: " + data.image + "</br>";
-                        content += "data.additionalData: " + data.additionalData + "</br></br>";
+                        content += "data.message: " + data.message + "<br>";
+                        content += "data.title: " + data.title + "<br>";
+                        content += "data.count: " + data.count + "<br>";
+                        content += "data.sound: " + data.sound + "<br>";
+                        content += "data.image: " + data.image + "<br>";
+                        content += "data.additionalData: " + data.additionalData + "<br/><br/>";
 
                         $("#notifications").append(content);
                     });
@@ -452,8 +464,12 @@
                             <input type="text" class="form-control" id="deviceName" name="deviceName" placeholder="Device Name">
                         </div>
                         <div class="form-group">
-                            <label for="deviceId">Device ID</label>
-                            <input type="text" class="form-control" id="deviceId" name="deviceId" placeholder="Device ID">
+                            <label for="deviceOS">Device OS</label>
+                            <input type="text" class="form-control" id="deviceOS" name="deviceOS" placeholder="Device OS">
+                        </div>
+                        <div class="form-group">
+                            <label for="deviceModel">Device Model</label>
+                            <input type="text" class="form-control" id="deviceModel" name="deviceModel" placeholder="Device Model">
                         </div>
                         <div class="form-group">
                             <label for="platform">Platform</label>
