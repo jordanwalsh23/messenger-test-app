@@ -97,13 +97,13 @@
     },
     "installed_plugins": {
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
+            "PACKAGE_NAME": "com.whispir.test_app"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
+            "PACKAGE_NAME": "com.whispir.test_app"
         },
         "phonegap-plugin-push": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
+            "PACKAGE_NAME": "com.whispir.test_app"
         },
         "com.plugins.shortcut": {
             "PACKAGE_NAME": "com.whispir.test_app"
