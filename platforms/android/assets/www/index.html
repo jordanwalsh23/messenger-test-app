@@ -29,18 +29,22 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript">
 
-            //var WHISPIR_API_URL = "http://app9.stg1.whispir.net:9080/api";
-            //var APPS_API_URL = "http://app9.stg1.whispir.net:8500";
+            var WHISPIR_API_URL = "http://app9.stg1.whispir.net:9080/api";
+            var APPS_API_URL = "http://app9.stg1.whispir.net:8500";
             
 
-            var WHISPIR_API_URL = "http://jtribeapi.whispir.net:9080/api";
-            var APPS_API_URL = "http://jtribeappapi.whispir.net:8500";
+            //var WHISPIR_API_URL = "http://jtribeapi.whispir.net:9080/api";
+            //var APPS_API_URL = "http://jtribeappapi.whispir.net:8500";
 
 
-            var APP_ID = "422D0A8A4C73BBEA";
+            var APP_ID = "68307F89E349AA24"; 
             var WORKSPACE_ID = "86649B4A05B0A368";
-            var TOKEN = "";
             var ANDROID_SENDER_ID = "844990143909";
+            
+            var USERNAME = "nadim_jtribe";
+            var PASSWORD = "Whispir1";
+
+            var TOKEN = "";
             var PUSH_TOKEN = "";
 
             document.addEventListener("deviceready", onDeviceReady, false);
@@ -51,6 +55,7 @@
                 $("#invitationRequest").hide();
                 $("#invitationAccept").hide();
                 $("#notificationsList").hide();
+                $("#settingsSection").hide();
 
                 //Invitation Request
                 $("#inviteRequestBtn").click(function(){
@@ -79,8 +84,8 @@
                             "accept" : "application/vnd.whispir.contact-v1+json",
                             "content-type" : "application/vnd.whispir.contact-v1+json"
                         },
-                        username: "nadim_jtribe",
-                        password: "Whispir1",
+                        username: USERNAME,
+                        password: PASSWORD,
                         method: "GET",
                         dataType: "json",
                         success: function(data, status, xhr) {
@@ -93,8 +98,8 @@
                                         "accept" : "application/vnd.whispir.contact-v1+json",
                                         "content-type" : "application/vnd.whispir.contact-v1+json"
                                     },
-                                    username: "nadim_jtribe",
-                                    password: "Whispir1",
+                                    username: USERNAME,
+                                    password: PASSWORD,
                                     method: "GET",
                                     dataType: "json",
                                     success: function(data, status, xhr) {
@@ -153,8 +158,8 @@
                                         "accept" : "application/vnd.whispir.contact-v1+json",
                                         "content-type" : "application/vnd.whispir.contact-v1+json"
                                     },
-                                    username: "nadim_jtribe",
-                                    password: "Whispir1",
+                                    username: USERNAME,
+                                    password: PASSWORD,
                                     method: "POST",
                                     dataType: "json",
                                     data: JSON.stringify(request),
@@ -223,13 +228,9 @@
                     //Construct the API request to Whispir
                     var request = {
                       "deviceName": $("#deviceName").val(),
-                      "appVersion": $("#application option:selected").attr("data-version"),
                       "platform": $("#platform").val().toUpperCase(),
                       "deviceOS" : $("#deviceOS").val(),
-                      "deviceModel" : $("#deviceModel").val(),
-                      "badgeCount": "0",
-                      "pushDisabledByUser": false,
-                      "status": "A",                      
+                      "deviceModel" : $("#deviceModel").val(),                    
                       "pushToken": PUSH_TOKEN
                     };
 
@@ -286,6 +287,47 @@
 
                 $("#clearMessages").click(function(event){
                     $("#notifications").empty();
+                });
+
+                $("#settings").click(function(event){
+                    $("#settingsSection").show();
+                    $("#username").val(USERNAME);
+                    $("#password").val(PASSWORD);
+                    $("#appId").val(APP_ID);
+                    $("#workspaceId").val(WORKSPACE_ID);
+                    $("#androidSenderId").val(ANDROID_SENDER_ID);
+                    $("#whispirApiUrl").val(WHISPIR_API_URL);
+                    $("#messengerApiUrl").val(APPS_API_URL);
+                });
+
+                $("#settingsForm").submit(function(){
+                    USERNAME = $("#username").val();
+                    PASSWORD = $("#password").val();
+                    APP_ID = $("#appId").val();
+                    WORKSPACE_ID = $("#workspaceId").val();
+                    ANDROID_SENDER_ID = $("#androidSenderId").val();
+                    WHISPIR_API_URL = $("#whispirApiUrl option:selected").val();
+                    APPS_API_URL = $("#messengerApiUrl option:selected").val();
+
+                    alert("Settings updated");
+
+                    $("#settingsSection").hide();
+
+                    $(window).scrollTop(0);
+
+                    event.preventDefault();
+                });
+
+                $("#settingsCancelBtn").click(function(){
+                    event.preventDefault();
+                    $("#settingsSection").hide();
+                    $("#username").val(USERNAME);
+                    $("#password").val(PASSWORD);
+                    $("#appId").val(APP_ID);
+                    $("#workspaceId").val(WORKSPACE_ID);
+                    $("#androidSenderId").val(ANDROID_SENDER_ID);
+                    $("#whispirApiUrl").val(WHISPIR_API_URL);
+                    $("#messengerApiUrl").val(APPS_API_URL);
                 });
 
                 $("#deviceName").val(device.name);
@@ -352,8 +394,8 @@
                         "accept" : "application/vnd.whispir.appdevice-v1+json",
                         "content-type" : "application/vnd.whispir.appdevice-v1+json"
                     },
-                    username: "nadim_jtribe",
-                    password: "Whispir1",
+                    username: USERNAME,
+                    password: PASSWORD,
                     method: "POST",
                     dataType: "text",
                     data: JSON.stringify(request),
@@ -369,7 +411,6 @@
                 });
             }
 
-            //window.plugins.Shortcut.CreateShortcut("Whipir Test App", function(){}, function(){} );
         </script>
     </head>
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -392,10 +433,7 @@
                             <a href="#page-top"></a>
                         </li>
                         <li>
-                            <a class="page-scroll" href="#inviteSetup">Get Started</a>
-                        </li>
-                        <li>
-                            <a class="page-scroll" href="#contact">Contact</a>
+                            <a class="page-scroll" href="#settings" id="settings">Settings</a>
                         </li>
                     </ul>
                 </div>
@@ -539,6 +577,55 @@
                     <div class="col-sm-6">
                         <button class="btn btn-large" id="clearMessages">Clear Messages</button>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SettingsForm Section -->
+        <section id="settingsSection" class="container content-section">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2 class="text-center">Settings</h2>
+                    <p class="text-center">The following settings have been predefined for this application.</p>
+                    <form id="settingsForm">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="text" class="form-control" id="password" name="password" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="appId">App ID</label>
+                            <input type="text" class="form-control" id="appId" name="appId" placeholder="App ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="workspaceId">Workspace ID</label>
+                            <input type="text" class="form-control" id="workspaceId" name="workspaceId" placeholder="Workspace ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="androidSenderId">Android Sender ID</label>
+                            <input type="text" class="form-control" id="androidSenderId" name="androidSenderId" placeholder="Android Sender ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="whispirApiUrl">Whispir API</label>
+                            <select class="form-control" id="whispirApiUrl" name="whispirApiUrl">
+                                <option value="http://app9.stg1.whispir.net:9080/api" selected>http://app9.stg1.whispir.net:9080/api (internal)</option>
+                                <option value="http://jtribeapi.whispir.net:9080/api">http://jtribeapi.whispir.net:9080/api (external)</option>
+                            <select>
+                        </div>
+                        <div class="form-group">
+                            <label for="messengerApiUrl">Messenger API</label>
+                            <select class="form-control" id="messengerApiUrl" name="messengerApiUrl">
+                                <option value="http://app9.stg1.whispir.net:8500" selected>http://app9.stg1.whispir.net:8500 (internal)</option>
+                                <option value="http://jtribeappapi.whispir.net:8500">http://jtribeappapi.whispir.net:8500 (external)</option>
+                            <select>
+                        </div>
+
+                        <button type="submit" id="settingsUpdateBtn" class="btn btn-large">Update Settings</button>
+                        <button type="button" id="settingsCancelBtn" class="btn btn-large">Cancel</button>
+                    </form>
                 </div>
             </div>
         </section>
