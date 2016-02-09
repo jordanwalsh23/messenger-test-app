@@ -15,6 +15,12 @@
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.whispir.test_app"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.whispir.test_app"
+        },
+        "com.synconset.cordovaHTTP": {
+            "PACKAGE_NAME": "com.whispir.test_app"
         }
     },
     "dependent_plugins": {}
